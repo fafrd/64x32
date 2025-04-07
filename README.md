@@ -1,3 +1,3 @@
-# Server
+# 64x32 RGB LED Matrix controller
 
-uv run server.py
+    uv run server.py
