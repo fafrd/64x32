@@ -18,11 +18,11 @@ def index():
             save_path = os.path.join(UPLOAD_DIR, f.filename)
             f.save(save_path)
         return redirect(url_for("index"))
-    
+
     files = os.listdir(UPLOAD_DIR)
     # Sort by mod time descending
     files.sort(key=lambda x: os.path.getmtime(os.path.join(UPLOAD_DIR, x)), reverse=True)
-    
+
     return render_template("index.html", files=files)
 
 @app.route("/display/<filename>", methods=["POST"])
@@ -38,6 +38,7 @@ def display_file(filename):
           "/home/pi/bin/led-image-viewer",
           file_path,
           "--led-no-hardware-pulse",
+          "--led-gpio-mapping=adafruit-hat",
           "--led-cols=64",
           "--led-rows=32",
           "--led-brightness=50"
