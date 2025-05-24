@@ -29,10 +29,9 @@ def index():
 def display_file(filename):
     global viewer_process
     if viewer_process:
-        viewer_process.kill()
+        subprocess.run(["sudo", "-n", "kill", "-15", str(viewer_process.pid)])
         viewer_process = None
     file_path = os.path.join(UPLOAD_DIR, filename)
-    # Adjust led-image-viewer command as needed
     cmd = [
           "sudo",
           "/home/pi/bin/led-image-viewer",
@@ -41,7 +40,7 @@ def display_file(filename):
           "--led-gpio-mapping=adafruit-hat",
           "--led-cols=64",
           "--led-rows=32",
-          "--led-brightness=50"
+          "--led-brightness=25"
     ]
     viewer_process = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL)
     return redirect(url_for("index"))
